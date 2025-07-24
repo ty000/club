@@ -1,0 +1,39 @@
+# Unit Tests for Club Lite Backend (as per base.md)
+
+## 1. Authentication (Login/Create Account)
+- Should create a new user and return a token if email does not exist
+- Should return a token for an existing user with correct password
+- Should return an error for an existing user with incorrect password
+- Should require Authorization header for all protected endpoints
+- Should reject requests with invalid or missing token
+
+## 2. Creator Profile
+- Should create a new creator with unique username and monthly price
+- Should not allow duplicate creator usernames
+- Should return creator profile by username
+- Should return error if creator not found by username
+
+## 3. Media Management (Creators only)
+- Should allow creator to create media for their own profile
+- Should forbid non-creator users from creating media for another creator
+- Should return all media for a creator to the owner (full mediaUrl and blurredMediaUrl)
+- Should return all media for a creator to a subscribed user (full mediaUrl and blurredMediaUrl)
+- Should return only blurredMediaUrl for a creator to a non-subscribed, non-owner user
+- Should return error if creator not found when creating or fetching media
+
+## 4. Subscription Payment Session
+- Should create a payment session for a fan and creator
+- Should return error if fan or creator does not exist
+- Should return correct sessionId, paymentUrl, and metadata in response
+
+## 5. PSP Webhook Handling
+- Should accept webhook with correct X-Webhook-Secret header
+- Should reject webhook with missing or incorrect X-Webhook-Secret header
+- Should update subscription status to SUCCESS on successful webhook
+- Should update subscription status to FAILED on failed webhook
+- Should return received webhook data in response
+
+## 6. Authorization/Access Control
+- Should allow only the creator to create media for their own profile
+- Should allow only the creator or subscribed users to access full media
+- Should forbid unsubscribed, non-owner users from accessing full media 

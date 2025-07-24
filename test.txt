@@ -1,0 +1,24 @@
+# Test login (create or login user)
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"test@club.fans","password":"123456"}'
+
+# Test create creator (create creator)
+curl -X POST http://localhost:3000/creators -H "Content-Type: application/json" -H "Authorization: Bearer l113nn4j9fix1bvsowzbt" -d '{"username":"creatorX","monthlyPrice":499}'
+curl -X POST http://localhost:3000/creators -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -d '{"username":"creatorX","monthlyPrice":499}'
+
+# Test get creator by username
+curl http://localhost:3000/creators/creatorX -H "Authorization: Bearer <TOKEN>"
+
+# Test add media (replace <CREATOR_ID> and <TOKEN> with actual values)
+curl -X POST http://localhost:3000/creators/265fd2b5-7bdd-4678-a508-496689a7cb05/medias -H "Content-Type: application/json" -H "Authorization: Bearer l113nn4j9fix1bvsowzbt" -d '{"mediaUrl":"media-url","blurredMediaUrl":"blurred-media-url"}'
+curl -X POST http://localhost:3000/creators/<CREATOR_ID>/medias -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -d '{"mediaUrl":"media-url","blurredMediaUrl":"blurred-media-url"}'
+
+# Test get medias (replace <CREATOR_ID> with actual value)
+curl http://localhost:3000/creators/<CREATOR_ID>/medias
+
+# Test create subscription session (replace <FAN_ID> and <CREATOR_ID> with actual values)
+curl -X POST http://localhost:3000/subscriptions/sessions -H "Content-Type: application/json" -H "Authorization: Bearer l113nn4j9fix1bvsowzbt" -d '{"fanId":"<FAN_ID>","creatorId":"<CREATOR_ID>"}'
+curl -X POST http://localhost:3000/subscriptions/sessions -H "Content-Type: application/json" -H "Authorization: Bearer <TOKEN>" -d '{"fanId":"<FAN_ID>","creatorId":"<CREATOR_ID>"}'
+
+# Test webhook (replace <SESSION_ID>, <FAN_ID>, <CREATOR_ID> as needed)
+curl -X POST http://localhost:3000/subscriptions/hook -H "Content-Type: application/json" -H "X-Webhook-Secret: zU7RDqXOF859503MJlkCin" -d '{"sessionId":"<SESSION_ID>","status":"SUCCESS","metadata":{"fanId":"<FAN_ID>","creatorId":"<CREATOR_ID>"}}'
+
